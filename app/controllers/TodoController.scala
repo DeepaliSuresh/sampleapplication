@@ -5,8 +5,9 @@ import play.api.mvc._
 import play.api.libs.json._
 import models.Task
 import dao.TaskDAO
+
 import java.time.LocalDate
-import scala.concurrent.ExecutionContext
+import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
 class TodoController @Inject()(cc: ControllerComponents, taskDAO: TaskDAO)(implicit ec: ExecutionContext)
@@ -25,11 +26,22 @@ class TodoController @Inject()(cc: ControllerComponents, taskDAO: TaskDAO)(impli
     }
   }
 
-  def createTask: Action[Task] = Action.async(parse.json[Task]) { request =>
-    taskDAO.createTask(request.body).map { createdTask =>
-      Created(Json.toJson(createdTask))
+  def createTask: Action[JsValue] = Action.async(parse.json) { request =>
+    request.body.validate[Task] match {
+      case JsSuccess(task, _) =>
+        val newTask = task.copy(
+          Id = 0, // Set the Id to 0 as it will be generated automatically by the database
+          CreatedDate = LocalDate.now(),
+          UpdatedDate = LocalDate.now()
+        )
+        taskDAO.createTask(newTask).map { createdTask =>
+          Created(Json.toJson(createdTask))
+        }
+      case JsError(errors) =>
+        Future.successful(BadRequest(Json.obj("message" -> JsError.toJson(errors))))
     }
   }
+
 
   def updateTask(id: Long): Action[Task] = Action.async(parse.json[Task]) { request =>
     val updatedTask = request.body.copy(Id = id, UpdatedDate = LocalDate.now())
