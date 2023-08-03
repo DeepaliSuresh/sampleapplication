@@ -4,9 +4,12 @@ import java.time.LocalDate
 import javax.inject.Inject
 import play.api.db.slick.DatabaseConfigProvider
 import slick.jdbc.JdbcProfile
-import scala.concurrent.{ExecutionContext, Future}
 
+import scala.concurrent.{ExecutionContext, Future}
 import models.Task
+import play.mvc.Action
+import play.mvc.BodyParser.AnyContent
+import play.mvc.Security.AuthenticatedAction
 
 class TaskDAO @Inject()(dbConfigProvider: DatabaseConfigProvider)(implicit ec: ExecutionContext) {
   private val dbConfig = dbConfigProvider.get[JdbcProfile]
