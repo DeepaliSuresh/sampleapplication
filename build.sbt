@@ -4,7 +4,6 @@ organization := "com.example"
 version := "1.0-SNAPSHOT"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
-
 scalaVersion := "2.13.11"
 
 libraryDependencies += guice
@@ -20,8 +19,9 @@ libraryDependencies += "software.amazon.awssdk" % "s3" % "2.16.64" exclude("com.
 libraryDependencies += "com.fasterxml.jackson.core" % "jackson-databind" % "2.11.0"
 libraryDependencies += "com.fasterxml.jackson.module" % "jackson-module-scala_2.13" % "2.11.0"
 
-// Adds additional packages into Twirl
-//TwirlKeys.templateImports += "com.example.controllers._"
-
-// Adds additional packages into conf/routes
-// play.sbt.routes.RoutesKeys.routesImport += "com.example.binders._"
+libraryDependencies ++= Seq(
+  "com.typesafe.play" %% "play-slick" % "5.0.0",
+  "com.typesafe.play" %% "play-slick-evolutions" % "5.0.0",
+  "mysql" % "mysql-connector-java" % "8.0.26",
+  "com.auth0" % "java-jwt" % "3.18.1"
+)
