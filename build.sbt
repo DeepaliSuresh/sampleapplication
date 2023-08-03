@@ -16,6 +16,10 @@ libraryDependencies ++= Seq(
   "com.typesafe.play" %% "play-slick-evolutions" % "5.0.0",
   "mysql" % "mysql-connector-java" % "8.0.26"
 )
+libraryDependencies += "software.amazon.awssdk" % "s3" % "2.16.64" exclude("com.fasterxml.jackson.core", "jackson-databind")
+libraryDependencies += "com.fasterxml.jackson.core" % "jackson-databind" % "2.11.0"
+libraryDependencies += "com.fasterxml.jackson.module" % "jackson-module-scala_2.13" % "2.11.0"
+
 // Adds additional packages into Twirl
 //TwirlKeys.templateImports += "com.example.controllers._"
 

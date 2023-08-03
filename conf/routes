@@ -8,7 +8,8 @@ POST    /tasks             controllers.TodoController.createTask
 PUT     /tasks/:id         controllers.TodoController.updateTask(id: Long)
 DELETE  /tasks/:id         controllers.TodoController.deleteTask(id: Long)
 
-
+POST    /upload            controllers.FileController.uploadFileToS3()
+GET     /download          controllers.FileController.downloadFileFromS3()
 
 
 
