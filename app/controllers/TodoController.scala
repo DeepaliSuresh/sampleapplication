@@ -30,7 +30,7 @@ class TodoController @Inject()(cc: ControllerComponents, taskDAO: TaskDAO)(impli
     request.body.validate[Task] match {
       case JsSuccess(task, _) =>
         val newTask = task.copy(
-          Id = 0, // Set the Id to 0 as it will be generated automatically by the database
+          Id = 0, 
           CreatedDate = LocalDate.now(),
           UpdatedDate = LocalDate.now()
         )
