@@ -2,14 +2,21 @@
 # This file defines all application routes (Higher priority routes first)
 # https://www.playframework.com/documentation/latest/ScalaRouting
 
-GET     /tasks             controllers.TodoController.getAllTasks
-GET     /tasks/:id         controllers.TodoController.getTaskById(id: Long)
-POST    /tasks             controllers.TodoController.createTask
-PUT     /tasks/:id         controllers.TodoController.updateTask(id: Long)
-DELETE  /tasks/:id         controllers.TodoController.deleteTask(id: Long)
-
-
-
+#1 Task application
+GET     /tasks                       controllers.TodoController.getAllTasks
+GET     /tasks/:id                   controllers.TodoController.getTaskById(id: Long)
+POST    /tasks                       controllers.TodoController.createTask
+PUT     /tasks/:id                   controllers.TodoController.updateTask(id: Long)
+DELETE  /tasks/:id                   controllers.TodoController.deleteTask(id: Long)
+#aws application
+POST    /upload                      controllers.FileController.uploadFileToS3()
+GET     /download                    controllers.FileController.downloadFileFromS3()
+#DELETE  /delete                      controllers.FileController.deleteFileFromS3()sbt
+#JWt
+GET     /login/:userId               controllers.AuthController.login(userId: Long)
+GET     /refresh-token/:token        controllers.AuthController.refreshToken(token: String)
+GET     /validate-token/:token       controllers.AuthController.validateToken(token: String)
+GET     /logout/:token               controllers.AuthController.logout(token: String)
 
 
 
